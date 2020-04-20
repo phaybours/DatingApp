@@ -42,7 +42,7 @@ namespace DatingApp.API.Controllers
             // return Ok(createdUser);
             return StatusCode(201);
         }
-
+        
         [HttpPost("login")]
         public async Task<IActionResult> Login(UserForLoginDTO userForLoginDTO){
             //Validate user request

@@ -35,17 +35,19 @@ namespace DatingApp.API
         {
             // services.AddDbContext<DataContext>(x=>x.UseSqlServer(Configuration.GetConnectionString("TempCon")));
             services.AddCors();// Make sure you call this previous to AddMvc
-            services.AddDbContext<DataContext>(x=>x.UseSqlServer(GetConnectionString()));
+            services.AddDbContext<DataContext>(x => x.UseSqlServer(GetConnectionString()));
             services.AddControllers();
             services.AddScoped<IAuthRepository, AuthRepository>();
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-                .AddJwtBearer(options=>{
-                    options.TokenValidationParameters = new TokenValidationParameters{
+                .AddJwtBearer(options =>
+                {
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
                         ValidateIssuerSigningKey = true,
                         IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII
                             .GetBytes(Configuration.GetSection("Appsettings:Token").Value)),
-                        ValidateIssuer =false,
-                        ValidateAudience=false
+                        ValidateIssuer = false,
+                        ValidateAudience = false
                     };
                 });
         }
@@ -58,7 +60,7 @@ namespace DatingApp.API
             string username = Configuration.GetValue<string>("ConnectionStrings:Username");
             string password = Configuration.GetValue<string>("ConnectionStrings:Password");
 
-            if(isEncrypted == "Y")
+            if (isEncrypted == "Y")
             {
                 // Call Method to Decrypt Details
                 servername = blowFish.Decrypt_CBC(servername);
@@ -88,11 +90,11 @@ namespace DatingApp.API
             }
 
             // app.UseHttpsRedirection();
-            app.UseCors(options => options.WithOrigins("http://localhost:4200").AllowAnyMethod());
+            app.UseCors(options => options.WithOrigins("http://localhost:4200").AllowAnyMethod().AllowAnyHeader());
 
             app.UseRouting();
-            app.UseAuthentication();
             app.UseAuthorization();
+            app.UseAuthentication();
 
             app.UseEndpoints(endpoints =>
             {
