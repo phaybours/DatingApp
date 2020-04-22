@@ -16,21 +16,21 @@ export class NavComponent implements OnInit {
   }
 
   login() {
-    // this.authService.login(this.model).subscribe(next => {
-    //   console.log(next);
-    // }, error => {
-    //   console.log('Failed to login');
-    // });
-
-    this.testService.post(this.model, 'login').subscribe(next => {
-      const user = next;
-      if (user) {
-        localStorage.setItem('token', user.token);
-      }
+    this.authService.login(this.model).subscribe(next => {
       console.log(next);
     }, error => {
-      console.log('Failed to login');
+      console.log(error);
     });
+
+    // this.testService.post(this.model, 'login').subscribe(next => {
+    //   const user = next;
+    //   if (user) {
+    //     localStorage.setItem('token', user.token);
+    //   }
+    //   console.log(next);
+    // }, error => {
+    //   console.log(error);
+    // });
   }
   loggedIn() {
     const token = localStorage.getItem('token');
