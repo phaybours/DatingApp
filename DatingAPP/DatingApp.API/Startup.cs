@@ -40,6 +40,7 @@ namespace DatingApp.API
         {
             // services.AddDbContext<DataContext>(x=>x.UseSqlServer(Configuration.GetConnectionString("TempCon")));
             services.AddCors();// Make sure you call this previous to AddMvc
+            services.Configure<CloudinarySettings>(Configuration.GetSection("CloudinarySettings"));
             services.AddAutoMapper(typeof(Startup));
             services.AddTransient<Seed>();
             services.AddDbContext<DataContext>(x => x.UseSqlServer(GetConnectionString()));
