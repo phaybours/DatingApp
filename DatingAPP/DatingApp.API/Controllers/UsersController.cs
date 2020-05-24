@@ -34,7 +34,7 @@ namespace DatingApp.API.Controllers
             return Ok(UsersToReturn);
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{id}", Name = "GetUser")]
         public async Task<IActionResult> GetUser(int id)
         {
             var user = await _repo.GetUser(id);
@@ -50,9 +50,9 @@ namespace DatingApp.API.Controllers
 
             var userFromRepo = await _repo.GetUser(id);
             _mapper.Map(userForUpdateDTO, userFromRepo);
-            if(await _repo.SaveAll())
+            if (await _repo.SaveAll())
                 return NoContent();
-            
+
             throw new Exception($"Updating User {id} failed on save");
         }
     }

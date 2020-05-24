@@ -30,8 +30,6 @@ export class ErrorInterceptor implements HttpInterceptor {
                     }
                     console.log('from interceptor ' + modalStateErrors);
                     return throwError(modalStateErrors || serverError || 'Server Error');
-
-
                 }
             })
         );
